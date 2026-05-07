@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steam Files Downloader</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 24px; line-height: 1.6; }
+      .wrap { max-width: 760px; margin: auto; }
+      .list { display: grid; gap: 12px; }
+      a.btn { display:inline-block; padding:10px 14px; border:1px solid #ccc; border-radius:10px; text-decoration:none; color:#222; }
+      a.btn:hover { background:#f5f5f5; }
+      code { background:#f1f1f1; padding:2px 6px; border-radius:6px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>ファイルダウンロード</h1>
+      <p>以下から各ファイルを直接ダウンロードできます。</p>
+      <div class="list">
+        <a class="btn" href="index.html" download="index.html">index.html をダウンロード</a>
+        <a class="btn" href="style.css" download="style.css">style.css をダウンロード</a>
+        <a class="btn" href="script.js" download="script.js">script.js をダウンロード</a>
+      </div>
+      <p>GitHub Pages公開時は <code>/download.html</code> にアクセスしてください。</p>
+    </div>
+  </body>
+</html>
