@@ -1,0 +1,209 @@
+:root {
+  /* ===== グローバル調整用（必要に応じて変更）===== */
+  --steam-color-rgb: 255, 255, 255; /* 湯気の色（白基調） */
+  --steam-base-opacity: 0.35; /* 湯気の基本濃度 */
+  --steam-blur: 14px; /* ぼかし量（大きいほどやわらかい） */
+  --steam-height: clamp(90px, 22vw, 180px); /* 湯気の上昇距離 */
+  --steam-width: clamp(16px, 3vw, 28px); /* 湯気1本の横幅 */
+  --steam-duration: 7.5s; /* 湯気1本の基本速度 */
+  --steam-ease: cubic-bezier(0.24, 0.04, 0.21, 1); /* 上品な減速カーブ */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+  color: #1f1f1f;
+  background: linear-gradient(180deg, #f7f7f4 0%, #f2f1ee 100%);
+}
+
+.page {
+  width: min(1080px, 92vw);
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+}
+
+.intro {
+  margin-bottom: 2rem;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  letter-spacing: 0.04em;
+}
+
+.intro p {
+  margin-top: 0.8rem;
+  line-height: 1.7;
+  color: #4c4c4c;
+}
+
+.demo-section {
+  margin-top: 2rem;
+}
+
+.demo-section h2 {
+  font-size: clamp(1rem, 2.3vw, 1.2rem);
+  margin-bottom: 0.75rem;
+  color: #444;
+}
+
+.steam-host {
+  position: relative;
+  border-radius: 22px;
+  padding: 2rem;
+  min-height: 280px;
+  overflow: hidden;
+  border: 1px solid rgba(128, 128, 128, 0.18);
+}
+
+.steam-host.dark {
+  background: radial-gradient(circle at 50% 120%, #3b3938 0%, #111 55%, #070707 100%);
+  color: #f5f5f5;
+}
+
+.steam-host.light {
+  background: radial-gradient(circle at 50% 120%, #ffffff 0%, #f8f8f8 70%, #efefef 100%);
+}
+
+.steam-target {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  width: 120px;
+  height: 52px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(220, 220, 220, 0.25), rgba(40, 40, 40, 0.16));
+}
+
+.steam-host.light .steam-target {
+  background: linear-gradient(180deg, rgba(210, 210, 210, 0.34), rgba(170, 170, 170, 0.2));
+}
+
+.caption {
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 1rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  opacity: 0.88;
+}
+
+/* 湯気レイヤー本体（任意要素の上に重ねて使える） */
+.steam-layer {
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  width: min(280px, 76%);
+  height: var(--steam-height);
+  transform: translateX(-50%);
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.steam-puff {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: var(--steam-width);
+  height: calc(var(--steam-height) * 0.6);
+  border-radius: 999px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at 50% 35%,
+    rgba(var(--steam-color-rgb), calc(var(--steam-base-opacity) * var(--puff-opacity, 1))) 0%,
+    rgba(var(--steam-color-rgb), calc(var(--steam-base-opacity) * 0.55 * var(--puff-opacity, 1))) 42%,
+    rgba(var(--steam-color-rgb), 0) 100%
+  );
+  filter: blur(var(--steam-blur));
+  animation: steam-rise calc(var(--steam-duration) * var(--speed-mul, 1)) var(--steam-ease) infinite;
+  animation-delay: var(--delay, 0s);
+  mix-blend-mode: screen;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+@keyframes steam-rise {
+  0% {
+    transform: translate(-50%, 8px) scale(0.8, 0.9);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.78;
+  }
+  50% {
+    transform: translate(calc(-50% + var(--drift-a, 8px)), calc(var(--steam-height) * -0.48)) scale(1.1, 1.35);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--drift-b, -10px)), calc(var(--steam-height) * -1)) scale(1.28, 1.72);
+    opacity: 0;
+  }
+}
+
+.product-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(160, 160, 160, 0.2);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+}
+
+.product-image {
+  height: 240px;
+  background:
+    radial-gradient(circle at 50% 80%, #543d32 0 22%, #2e2421 23% 37%, transparent 38%),
+    radial-gradient(circle at 50% 68%, #d8c9b8 0 100%);
+}
+
+.steam-layer--card {
+  bottom: 100px;
+  z-index: 2;
+}
+
+.product-meta {
+  padding: 1rem 1rem 1.2rem;
+}
+
+.product-meta h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.35rem;
+}
+
+.product-meta p {
+  color: #5c5c5c;
+  font-size: 0.93rem;
+}
+
+@media (max-width: 640px) {
+  .steam-host {
+    min-height: 240px;
+    padding: 1.4rem;
+  }
+
+  .steam-layer {
+    width: min(240px, 85%);
+  }
+}
+
+/* アクセシビリティ: 動きを減らす設定 */
+@media (prefers-reduced-motion: reduce) {
+  .steam-puff {
+    animation: none;
+    opacity: 0.25;
+    transform: translate(-50%, calc(var(--steam-height) * -0.3)) scale(1.1);
+  }
+}
