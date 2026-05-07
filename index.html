@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steam / Yuge Effect Demo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <h1>湯気（スチーム）演出デモ</h1>
+        <p>
+          白背景・黒背景・カード重ね表示の3パターン。<br />
+          すべてHTML/CSS/JavaScriptのみで動作します。
+        </p>
+      </header>
+
+      <!-- 1) 黒背景デモ -->
+      <section class="demo-section">
+        <h2>1. 黒背景デモ</h2>
+        <div class="steam-host dark" aria-label="黒背景上の湯気演出デモ">
+          <div class="steam-target" aria-hidden="true"></div>
+          <!-- data-* でこのエリア専用に調整可能 -->
+          <div
+            class="steam-layer"
+            data-steam
+            data-count="14"
+            data-opacity="0.4"
+            data-speed="1.05"
+            data-spread="80"
+            aria-hidden="true"
+          ></div>
+          <p class="caption">夜の温泉・和モダン・高級感のある見え方</p>
+        </div>
+      </section>
+
+      <!-- 2) 白背景デモ -->
+      <section class="demo-section">
+        <h2>2. 白背景デモ</h2>
+        <div class="steam-host light" aria-label="白背景上の湯気演出デモ">
+          <div class="steam-target" aria-hidden="true"></div>
+          <div
+            class="steam-layer"
+            data-steam
+            data-count="10"
+            data-opacity="0.32"
+            data-speed="1.15"
+            data-spread="72"
+            aria-hidden="true"
+          ></div>
+          <p class="caption">カフェ・温活サロン・クリーンな背景向け</p>
+        </div>
+      </section>
+
+      <!-- 3) 商品カード重ねデモ -->
+      <section class="demo-section">
+        <h2>3. カード重ねデモ（商品画像想定）</h2>
+        <article class="product-card" aria-label="商品カードに重なる湯気演出デモ">
+          <div class="product-image" role="img" aria-label="湯のみのシルエット画像風"></div>
+          <div
+            class="steam-layer steam-layer--card"
+            data-steam
+            data-count="9"
+            data-opacity="0.3"
+            data-speed="1.0"
+            data-spread="60"
+            aria-hidden="true"
+          ></div>
+          <div class="product-meta">
+            <h3>温香（おんこう）ブレンド</h3>
+            <p>よもぎ・柚子・焙じ茶の落ち着いた香り</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
